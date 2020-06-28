@@ -8,20 +8,19 @@ def index(request):
 
     #return HttpResponse("home")
 def ex1(request):
-    sites = ['''<h1>For my poems blog</h1><a href="http://poemlyf.blogspot.com/">my poems</a>''',
-             ]
+    sites = ['''<h1>For my poems blog</h1><a href="http://poemlyf.blogspot.com/">my poems</a>''']
     return HttpResponse((sites))
 
 
 def analyze(request):
     #Get the text
-    djtext = request.POST.get('text', 'default')
+    djtext = request.GET.get('text', 'default')
 
     # Check checkbox values
-    removepunc = request.POST.get('removepunc', 'off')
-    fullcaps = request.POST.get('fullcaps', 'off')
-    newlineremover = request.POST.get('newlineremover', 'off')
-    extraspaceremover = request.POST.get('extraspaceremover', 'off')
+    removepunc = request.GET.get('removepunc', 'off')
+    fullcaps = request.GET.get('fullcaps', 'off')
+    newlineremover = request.GET.get('newlineremover', 'off')
+    extraspaceremover = request.GET.get('extraspaceremover', 'off')
 
     #Check which checkbox is on
     if removepunc == "on":
@@ -48,7 +47,7 @@ def analyze(request):
     if(newlineremover=="on"):
         analyzed = ""
         for char in djtext:
-            if char != "\n" and char!="\r":
+            if char != "\n" and char !="\r":
                 analyzed = analyzed + char
         params = {'purpose': 'New Line Removed', 'analyzed_text': analyzed}
         djtext = analyzed
@@ -67,3 +66,5 @@ def analyze(request):
 #
 # def charcount(request):
 #     return HttpResponse("charcount ")
+
+
